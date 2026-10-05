@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import io
 from dataclasses import dataclass
 from pathlib import Path
 from threading import Event
@@ -99,7 +100,9 @@ def permissions(path: Path, password: str | None = None) -> Permissions:
 
 def _open(path: Path, password: str | None) -> pikepdf.Pdf:
     try:
-        return pikepdf.open(path, password=password or "", attempt_recovery=True)
+        # From memory so the file isn't held open when the output replaces it (Windows).
+        return pikepdf.open(io.BytesIO(path.read_bytes()), password=password or "",
+                            attempt_recovery=True)
     except pikepdf.PasswordError as exc:
         if password:
             raise WrongPassword(f"Wrong password for {path.name}.") from exc

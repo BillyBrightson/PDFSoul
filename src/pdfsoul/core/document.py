@@ -28,11 +28,13 @@ def open_pdf(path: Path, password: str | None = None, *, repair: bool = True) ->
     path = Path(path)
     if not path.is_file():
         raise PdfSoulError(f"File not found: {path}")
-    with path.open("rb") as fh:
-        if b"%PDF" not in fh.read(1024):
-            raise PdfSoulError(f"{path.name} isn't a PDF.")
+    data = path.read_bytes()
+    if b"%PDF" not in data[:1024]:
+        raise PdfSoulError(f"{path.name} isn't a PDF.")
     try:
-        doc = fitz.open(path, filetype="pdf")
+        # From memory, not the path: Windows can't replace a file that is still open, and the
+        # output is often the input itself.
+        doc = fitz.open(stream=data, filetype="pdf")
         if doc.page_count == 0 and not doc.needs_pass:
             raise PdfSoulError("No pages")
     except Exception as exc:
