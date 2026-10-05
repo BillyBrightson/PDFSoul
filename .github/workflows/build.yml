@@ -6,7 +6,7 @@ on:
     tags: ["v*"]
   pull_request:
 
-# Every push builds a Windows installer and two macOS disk images (download them from the run's
+# Every push builds a Windows installer and an Apple silicon macOS disk image (download them from the run's
 # "Artifacts"). Pushing a tag such as v0.1.0 also attaches them to a GitHub release.
 jobs:
   windows:
@@ -51,14 +51,9 @@ jobs:
         with:
           files: dist/PDFSoul-By-Billy-Setup-*.exe
 
+  # Apple silicon only: pikepdf no longer publishes Intel macOS wheels.
   macos:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - runner: macos-15        # Apple silicon → arm64 .dmg
-          - runner: macos-15-intel  # Intel → x86_64 .dmg
-    runs-on: ${{ matrix.runner }}
+    runs-on: macos-15
     permissions:
       contents: write
     env:

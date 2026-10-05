@@ -2,7 +2,7 @@
 # Build the macOS app and disk image: dist/PDFSoul-By-Billy-<version>-macOS-<arch>.dmg
 #
 # Needs: uv. Builds for the architecture of the Mac it runs on (Apple silicon → arm64,
-# Intel → x86_64); CI builds both.
+# Intel → x86_64); CI builds arm64 (pikepdf has no Intel macOS wheels).
 #
 # Signing: set SIGN_IDENTITY to a "Developer ID Application: …" certificate to sign properly,
 # and NOTARY_PROFILE to a `xcrun notarytool store-credentials` profile to notarize. Without

@@ -160,8 +160,8 @@ packaging/build_mac.sh` signs, notarizes and staples the image so it opens witho
 ## CI
 
 GitHub Actions (`.github/workflows/build.yml`) builds everything on each push: the Windows
-installer on `windows-latest`, plus arm64 and x86_64 disk images on `macos-15` and
-`macos-15-intel`. Download them from the run's Artifacts; for each `v*` tag they are also
+installer on `windows-latest`, plus an Apple silicon disk image on `macos-15` (pikepdf
+no longer ships Intel macOS wheels). Download them from the run's Artifacts; for each `v*` tag they are also
 attached to the release.
 
 ## Licensing

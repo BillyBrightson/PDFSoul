@@ -121,7 +121,7 @@ def run(
 
     Returns combined stdout/stderr. Raises :class:`PdfSoulError` on a non-zero exit.
     """
-    flags = subprocess.CREATE_NO_WINDOW if WINDOWS else 0  # type: ignore[attr-defined]
+    flags: int = getattr(subprocess, "CREATE_NO_WINDOW", 0) if WINDOWS else 0
     proc = subprocess.Popen(
         cmd,
         stdout=subprocess.PIPE,
