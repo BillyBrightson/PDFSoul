@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+
+# Engines are copied in by the Windows build, not committed.
+bin/*
+!bin/README.md
+
+.DS_Store
+Thumbs.db
+.scratch/
